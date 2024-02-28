@@ -57,4 +57,4 @@ RUN source /opt/ros/noetic/setup.bash \
 
 ENTRYPOINT ["/ros_entrypoint.sh"]
 # CMD ["bash"]
-CMD ["roslaunch", "rosaria", "amazon_grant.launch"]
+CMD ["roslaunch", "pioneer_bringup", "pioneer_bringup_amazon.launch"]
