@@ -56,5 +56,5 @@ RUN source /opt/ros/noetic/setup.bash \
     && catkin init && catkin build
 
 ENTRYPOINT ["/ros_entrypoint.sh"]
-CMD ["bash"]
-# CMD ["roslaunch", "pioneer_bringup", "pioneer_bringup_amazon.launch"]
+# CMD ["bash"]
+CMD ["roslaunch", "pioneer_bringup", "pioneer_bringup_amazon.launch"]
