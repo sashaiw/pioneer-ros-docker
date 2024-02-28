@@ -1,0 +1,44 @@
+<!-- -*- mode: XML -*- -->
+
+<launch>
+
+
+  <!-- the batteries -->
+  <!-- <node pkg="laptop_battery_monitor" type="laptop_battery.py" name="laptop_battery" output="screen" />  -->
+
+ <node name="rosaria" pkg="rosaria" type="RosAria" output="screen" >
+     <param name="port" type="string" value="/dev/ttyUSB0" /> <!-- prev: /dev/ttyUSB1 old: /dev/Aria -->
+     <param name="rot_decel" value="5.23598" />
+     <param name="trans_decel" value="1.0" />
+     <param name="odom_frame" value="pioneer/odom"/>
+     <param name="base_link_frame" value="pioneer/base_link"/>
+     <param name="bumpers_frame" value="pioneer/bumpers_frame"/>
+     <param name="sonar_frame" value="pioneer/sonar_frame"/>
+     <remap from="rosaria/pose" to ="pioneer/odom" />
+     <remap from="rosaria/cmd_vel" to="pioneer/cmd_vel" />
+     <remap from="rosaria/bumper_state" to="pioneer/bumper_state" /> 
+  </node>
+
+<node name="hokuyo" pkg="urg_node" type="urg_node" respawn="false" output="screen" >
+    <param name="calibrate_time" type="bool" value="true"/>
+    <param name="serial_port" type="string" value="/dev/ttyACM0"/> <!-- old: dev/Front -->
+    <param name="intensity" type="bool" value="false"/>
+    <param name="frame_id" value="urg_link"/>
+    <param name="max_ang" value="2.08"/>
+    <param name="min_ang" value="-2.08"/>
+    <remap from="/scan" to="/pioneer/frontscan"/>
+</node>
+
+<node name="hokuyo_tf" pkg="tf" type="static_transform_publisher" args="0.20 0 0.29 0 0 0 pioneer/base_link urg_link 10" />
+
+<node name="hokuyo_rear" pkg="urg_node" type="urg_node" respawn="false" output="screen" >
+    <param name="calibrate_time" type="bool" value="true"/>
+    <param name="serial_port" type="string" value="/dev/ttyACM1"/> <!-- old: dev/Front -->
+    <param name="intensity" type="bool" value="false"/>
+    <param name="frame_id" value="urg_rear_link"/>
+    <param name="max_ang" value="2.08"/>
+    <param name="min_ang" value="-2.08"/>
+    <remap from="/scan" to="/pioneer/rearscan"/>
+</node>
+
+<node name="hokuyo_rear_tf" pkg="tf" type="static_transform_publisher" args="-0.23 0 0.29 3.13 0 0 pioneer/base_link urg_rear_link 10 " />
