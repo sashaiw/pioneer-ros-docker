@@ -44,8 +44,6 @@ RUN chmod +x /ros_entrypoint.sh
 WORKDIR /catkin_ws
 COPY ./src ./src
 
-RUN git submodule update --init --recursive
-
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-rosdep \
     python3-catkin-tools \
