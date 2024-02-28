@@ -44,6 +44,8 @@ RUN chmod +x /ros_entrypoint.sh
 WORKDIR /catkin_ws
 COPY ./src ./src
 
+RUN git submodule update --init --recursive
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-rosdep \
     python3-catkin-tools \
@@ -56,5 +58,5 @@ RUN source /opt/ros/noetic/setup.bash \
     && catkin init && catkin build
 
 ENTRYPOINT ["/ros_entrypoint.sh"]
-# CMD ["bash"]
-CMD ["roslaunch", "pioneer_bringup", "pioneer_bringup_amazon.launch"]
+CMD ["bash"]
+# CMD ["roslaunch", "pioneer_bringup", "pioneer_bringup_amazon.launch"]
