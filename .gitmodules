@@ -1,0 +1,9 @@
+[submodule "src/AriaCoda"]
+	path = src/AriaCoda
+	url = git@github.com:reedhedges/AriaCoda.git
+[submodule "src/rosaria"]
+	path = src/rosaria
+	url = git@github.com:amor-ros-pkg/rosaria.git
+[submodule "src/urg_node"]
+	path = src/urg_node
+	url = git@github.com:ros-drivers/urg_node.git
