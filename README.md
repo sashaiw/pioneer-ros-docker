@@ -1,4 +1,9 @@
 # Configuration
+Initialize submodules:
+```
+git submodule --init --recursive
+```
+
 Make `.env` file with the following contents:
 ```
 ROS_MASTER_URI=http://localhost:11311
