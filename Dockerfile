@@ -35,6 +35,11 @@ SHELL ["/bin/bash", "-c"]
 #     python3-catkin-tools \
 #     && rm -rf /var/lib/apt/lists/*
 
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3-rosdep \
+    python3-catkin-tools \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
 
 # setup entrypoint
 COPY ./ros_entrypoint.sh /
@@ -44,11 +49,9 @@ RUN chmod +x /ros_entrypoint.sh
 WORKDIR /catkin_ws
 COPY ./src ./src
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    python3-rosdep \
-    python3-catkin-tools \
-    build-essential \
-    && rosdep init && rosdep update \
+# this should probably merged back into the previous apt-get stuff
+# I was just looking for a way to speed up the container build
+RUN apt-get update && rosdep init && rosdep update \
     && rosdep install --from-paths src --ignore-src -r -y \
     && rm -rf /var/lib/apt/lists/*
 
