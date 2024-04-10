@@ -1,3 +1,4 @@
+#include "image_transport/transport_hints.h"
 #include "opencv2/highgui.hpp"
 #include <ros/ros.h>
 #include <image_transport/image_transport.h>
@@ -19,7 +20,10 @@ private:
 };
 
 ProjectorImageView::ProjectorImageView(ros::NodeHandle* nh):nh_(*nh), it_(nh_) {
-    sub_ = it_.subscribe("/image", 1, &ProjectorImageView::imageCallback, this);
+    std::string transport;
+    nh_.param("image_transport", transport, std::string("raw"));
+    image_transport::TransportHints hints(transport, ros::TransportHints(), nh_);
+    sub_ = it_.subscribe("/image", 1, &ProjectorImageView::imageCallback, this, hints);
     cv::namedWindow(WINDOW_NAME, cv::WINDOW_NORMAL);
     cv::setWindowProperty(WINDOW_NAME, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
 }

@@ -19,6 +19,11 @@ If you are using the image viewer for the projector, run the following on the ho
 xhost +local:root
 ```
 
+If you are running this over SSH, you may have to set the `DISPLAY` environment variable as well:
+```
+export DISPLAY=":0"
+```
+
 By default the container will launch `src/pioneer_bringup/launch/pioneer_bringup_amazon.launch`. This can be changed on the last line of `Dockerfile`.
 
 # Run
