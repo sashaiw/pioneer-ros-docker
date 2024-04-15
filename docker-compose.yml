@@ -4,7 +4,7 @@ services:
   pioneer:
     build: .
     container_name: pioneer
-    restart: always
+    restart: no
     network_mode: "host"
     env_file: .env
     # user: ${UGID}
@@ -22,7 +22,7 @@ services:
     devices:
       - ${PIONEER_DEVICE}:/dev/ttyUSB0
       - ${FRONT_LIDAR_DEVICE}:/dev/ttyACM0
-      - ${REAR_LIDAR_DEVICE}:/dev/ttyACM1
+      # - ${REAR_LIDAR_DEVICE}:/dev/ttyACM1
     # tty: true # only for debug
     # stdin_open: true # only for debug
   
