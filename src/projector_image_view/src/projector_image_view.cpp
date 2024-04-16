@@ -21,9 +21,11 @@ private:
 
 ProjectorImageView::ProjectorImageView(ros::NodeHandle* nh):nh_(*nh), it_(nh_) {
     std::string transport;
-    nh_.param("image_transport", transport, std::string("raw"));
-    image_transport::TransportHints hints(transport, ros::TransportHints(), nh_);
-    sub_ = it_.subscribe("/image", 1, &ProjectorImageView::imageCallback, this, hints);
+    
+    std::string topic = nh_.resolveName("image");
+
+    sub_ = it_.subscribe(topic, 1, &ProjectorImageView::imageCallback, this);
+    
     cv::namedWindow(WINDOW_NAME, cv::WINDOW_NORMAL);
     cv::setWindowProperty(WINDOW_NAME, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
 }
@@ -33,7 +35,7 @@ ProjectorImageView::~ProjectorImageView() {
 }
 
 void ProjectorImageView::imageCallback(const sensor_msgs::ImageConstPtr& msg) {
-    ROS_INFO("Got image");
+    // ROS_INFO("Got image");
     try {
         cv::imshow(WINDOW_NAME, cv_bridge::toCvShare(msg, "bgr8")->image);
         cv::waitKey(1);
@@ -44,7 +46,7 @@ void ProjectorImageView::imageCallback(const sensor_msgs::ImageConstPtr& msg) {
 
 int main(int argc, char* argv[]) {
     ros::init(argc, argv, "projector_image_view", ros::init_options::AnonymousName);
-    ros::NodeHandle nh;
+    ros::NodeHandle nh("~");
 
     ProjectorImageView projectorImageView(&nh);
 
