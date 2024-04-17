@@ -10,7 +10,7 @@
     <node name="projector_image_view" pkg="projector_image_view" type="projector_image_view">
     <!-- if="$(arg image_view)"> -->
         <remap from="image" to="/projector" />
-        <param name="image_transport" value="theora" />
+        <param name="image_transport" value="compressed" />
     </node>
 
     <node name="pioneer_bot_rosaria" pkg="rosaria" type="RosAria" output="screen" >
