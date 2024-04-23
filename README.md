@@ -1,7 +1,7 @@
 # Configuration
 Initialize submodules:
 ```
-git submodule --init --recursive
+git submodule update --init --recursive
 ```
 
 Make `.env` file with the following contents:
