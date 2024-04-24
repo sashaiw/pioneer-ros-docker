@@ -6,6 +6,9 @@
     <arg name="y" default="0.0" />
 
     <arg name="image_view" default="true" />
+    <arg name="rviz" default="true" />
+
+    <include file="$(find amazon_grant_projection)/launch/projection.launch" if="$(arg rviz)" />
 
     <node name="projector_image_view" pkg="projector_image_view" type="projector_image_view">
     <!-- if="$(arg image_view)"> -->
