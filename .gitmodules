@@ -7,3 +7,6 @@
 [submodule "src/urg_node"]
 	path = src/urg_node
 	url = https://github.com/ros-drivers/urg_node.git
+[submodule "src/rviz_camera_stream"]
+	path = src/rviz_camera_stream
+	url = https://github.com/lucasw/rviz_camera_stream.git
