@@ -39,6 +39,11 @@ services:
     restart: no
     network_mode: "host"
     env_file: .env
+
+    # enable NVIDIA runtime
+    # you can remove this section if you're not using this
+    # installation:
+    # https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html
     deploy:
       resources:
         reservations:
@@ -46,11 +51,19 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [gpu]
+
+    # X11 config
+    # ensure your $DISPLAY environment variable is set with `export DISPLAY=:0`
+    # disable access controls with `xhost +local:root`
     environment:
       - "DISPLAY"
       - "QT_X11_NO_MITSHM=1"
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    
+    # devices for Pioneer/LIDAR serial
+    # usually these defaults are correct, but if they aren't they can be changed here
+    # (or better yet, made static with a udev rule)
     devices:
       - ${PIONEER_DEVICE}:/dev/ttyUSB0
       - ${FRONT_LIDAR_DEVICE}:/dev/ttyACM0
