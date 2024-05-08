@@ -44,14 +44,8 @@ services:
     # you can remove this section if you're not using this
     # installation:
     # https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [gpu]
-
+    runtime: nvidia
+    
     # X11 config
     # ensure your $DISPLAY environment variable is set with `export DISPLAY=:0`
     # disable access controls with `xhost +local:root`
