@@ -3,6 +3,12 @@ FROM ros:noetic-ros-core
 
 SHELL ["/bin/bash", "-c"]
 
+# nvidia-container-runtime
+ENV NVIDIA_VISIBLE_DEVICES \
+    ${NVIDIA_VISIBLE_DEVICES:-all}
+ENV NVIDIA_DRIVER_CAPABILITIES \
+    ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
+
 # # setup timezone
 # RUN echo 'Etc/UTC' > /etc/timezone && \
 #     ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime && \
